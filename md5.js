@@ -21,10 +21,12 @@ var md5 = function () {
 
     var bytesFromHex = function (str) {
         // TODO: convert hex string into an array of bytes
+        throw "Not implemented yet";
     };
 
     var bytesFromBase64 = function (str) {
         // TODO: convert base64 string into an array of bytes
+        throw "Not implemented yet";
     };
 
     var asBytes = function (word) {
