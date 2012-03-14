@@ -18,7 +18,7 @@ For data encoded in hexadeciaml, do the following:
 
     md5().fromHex("48656c6c6f20576f726c64");
 
-    > "Not implemented yet"
+    > b10a8db164e0754105b7a99be72e3fe5
 
 For data encoded in base64, do the following:
 

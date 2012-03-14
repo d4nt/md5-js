@@ -20,8 +20,13 @@ var md5 = function () {
     };
 
     var bytesFromHex = function (str) {
-        // TODO: convert hex string into an array of bytes
-        throw "Not implemented yet";
+        // convert hex string into an array of bytes
+        var bytes = [];
+        var i;
+        for (i = 0; i < str.length; i += 2) {
+            bytes.push(parseInt(str.slice(i, i + 2), 16));
+        }
+        return bytes;
     };
 
     var bytesFromBase64 = function (str) {
