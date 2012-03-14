@@ -26,7 +26,7 @@ For data encoded in base64, do the following:
 
     > "Not implemented yet"
 
-**Note:** as of v0.8.0, the Hex and Base64 methods are not fully implemented.
+**Note:** as of v0.9.0, the Base64 method is not fully implemented.
 
 # License
 This code is licensed under the Simplified BSD License
