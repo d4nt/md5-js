@@ -28,10 +28,51 @@ var md5 = function () {
         }
         return bytes;
     };
+    
+    // A function to decode base64 into a UTF-8 string, using the native atob if possible.
+    var atob = window.atob || (function() {
+		var base64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+
+		return function(input) {
+			var output = '';
+			var chr1, chr2, chr3;
+			var enc1, enc2, enc3, enc4;
+			var i = 0;
+
+			// Check for invalid base64 characters:
+			var invalid = /[^A-Za-z0-9\+\/\=]/;
+			if (invalid.test(input)) {
+				throw new SyntaxError('Invalid characters in base-64 input.');
+			}
+
+			do {
+				enc1 = base64.indexOf(input.charAt(i++));
+				enc2 = base64.indexOf(input.charAt(i++));
+				enc3 = base64.indexOf(input.charAt(i++));
+				enc4 = base64.indexOf(input.charAt(i++));
+
+				chr1 = (enc1 << 2) | (enc2 >> 4);
+				chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+				chr3 = ((enc3 & 3) << 6) | enc4;
+
+				output += String.fromCharCode(chr1);
+
+				if (enc3 !== 64) {
+					 output += String.fromCharCode(chr2);
+				}
+				
+				if (enc4 !== 64) {
+					 output += String.fromCharCode(chr3);
+				}
+			} while (i < input.length);
+
+			return output;
+		}
+	})();
 
     var bytesFromBase64 = function (str) {
-        // TODO: convert base64 string into an array of bytes
-        throw "Not implemented yet";
+        // convert base64 string into an array of bytes:
+		return bytesFromUTF8(atob(str));
     };
 
     var asBytes = function (word) {
@@ -257,5 +298,3 @@ var md5 = function () {
 
     return self;
 };
-
-
