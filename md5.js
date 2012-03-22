@@ -30,8 +30,30 @@ var md5 = function () {
     };
 
     var bytesFromBase64 = function (str) {
-        // TODO: convert base64 string into an array of bytes
-        throw "Not implemented yet";
+        var base64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+        var buf1, buf2, buf3, buf4;
+        var bytes = [];
+        var i, b;
+        for (i = 0; i < str.length; i += 4) {
+
+            buf1 = base64.indexOf(str.charAt(i));
+            buf2 = base64.indexOf(str.charAt(i + 1));
+            buf3 = base64.indexOf(str.charAt(i + 2));
+            buf4 = base64.indexOf(str.charAt(i + 3));
+
+            bytes.push((buf1 << 2) | (buf2 >> 4));
+
+            b = ((buf2 & 15) << 4) | (buf3 >> 2);
+            if (b !== 64) {
+                bytes.push(b);
+            }
+
+            b = ((buf3 & 3) << 6) | buf4;
+            if (b !== 64) {
+                bytes.push(b);
+            }
+        }
+        return bytes;
     };
 
     var asBytes = function (word) {
