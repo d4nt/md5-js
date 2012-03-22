@@ -24,9 +24,7 @@ For data encoded in base64, do the following:
 
     md5().fromBase64("SGVsbG8gV29ybGQ=");
 
-    > "Not implemented yet"
-
-**Note:** as of v0.9.0, the Base64 method is not fully implemented.
+    > b10a8db164e0754105b7a99be72e3fe5
 
 # License
 This code is licensed under the Simplified BSD License
