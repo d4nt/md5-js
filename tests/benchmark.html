@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>md5-js Benchmarks</title>
+        <script src="./md5.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    </head>
+    <body>
+        <table id="InputLengthResults">
+            <thead>
+                <th>Input Length (bytes)</th>
+                <th>Average Time (milliseconds)</th>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <script type="text/JavaScript">
+            function RecordResult(inputLength, averageTime) {
+                $("#InputLengthResults > tbody").append("<tr><td>" + inputLength + "</td><td>" + averageTime + "</td></tr>");
+            };
+
+            function CreateRandomString(inputLength) {
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for (var i = 0; i < inputLength; i++)
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+                return text;
+            }
+
+            function TestInputLength(inputLength) {
+                var i, start, end, total, times;
+
+                times = new Array();
+
+                for (i = 0; i < 100; i += 1) {
+                    str = CreateRandomString(inputLength)
+                    start = new Date();
+                    md5().fromUTF8(str);
+                    end = new Date();
+                    times.push(end.getTime() - start.getTime());
+                };
+
+                total = 0;
+                for (i = 0; i < 100; i += 1) {
+                    total += times[i];
+                }
+
+                return total / 100; // Average calculation time for 100 random strings
+            };
+
+            $(document).ready(function() {
+                var i;
+
+                for (i = 100; i <= 10000; i += 100) {
+                    RecordResult(i, TestInputLength(i));
+                }
+            });
+        </script>
+    </body>
+</html>
